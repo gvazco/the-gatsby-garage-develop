@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   BlockRenderer,
-  getStyles,
   getClasses,
+  getStyles,
 } from '@webdeveducation/wp-block-tools';
 import {
   CallToActionButton,
@@ -10,12 +10,25 @@ import {
   Cover,
   TickItem,
   CarSearch,
+  ContactForm7,
 } from '../components';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import numeral from 'numeral';
 
 export const blockRendererComponents = (block) => {
   switch (block.name) {
+    case 'contact-form-7/contact-form-selector': {
+      return (
+        <ContactForm7
+          key={block.id}
+          formId={block.attributes.id}
+          formMarkup={block.attributes.formMarkup
+            .replace('novalidate="novalidate"', '')
+            .split('aria-required="true"')
+            .join('aria-required="true" required')}
+        />
+      );
+    }
     case 'tgg/carsearch': {
       return (
         <CarSearch
@@ -26,11 +39,10 @@ export const blockRendererComponents = (block) => {
       );
     }
     case 'tgg/carprice': {
-      console.log('CAR_PRICE: ', block);
       return (
         <div className="flex justify-center">
-          <div className="bg-black py-5 px-6 font-heading text-3xl text-white">
-            ${numeral(block.attributes.price).format('0,0')}
+          <div className="bg-black py-5 px-8 font-heading text-3xl text-white">
+            £{numeral(block.attributes.price).format('0,0')}
           </div>
         </div>
       );
@@ -60,7 +72,7 @@ export const blockRendererComponents = (block) => {
           <GatsbyImage
             style={getStyles(block)}
             image={block.attributes.gatsbyImage}
-            alt={block.attributes.al || ''}
+            alt={block.attributes.alt || ''}
             width={block.attributes.width}
             height={block.attributes.height}
           />

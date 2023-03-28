@@ -12,7 +12,7 @@ export const CallToActionButton = ({
       to={destination}
       className={`${isActive ? 'cursor-default bg-yellow-400' : ''} ${
         fullWidth ? 'block' : 'inline-block'
-      } cursor-pointer rounded-sm bg-yellow-500 py-2 px-4 text-center font-bold uppercase !text-black no-underline transition-colors hover:bg-yellow-400`}
+      } btn`}
     >
       {label}
     </Link>

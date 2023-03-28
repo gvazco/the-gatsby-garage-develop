@@ -1,12 +1,12 @@
-import React from "react";
-import { BlockRendererProvider } from "@webdeveducation/wp-block-tools";
-import { blockRendererComponents } from "../config/blockRendererComponents";
-import { Link } from "gatsby";
-import { Layout } from "../components";
-import { graphql } from "gatsby";
+import React from 'react';
+import { BlockRendererProvider } from '@webdeveducation/wp-block-tools';
+import { blockRendererComponents } from '../config/blockRendererComponents';
+import { Link } from 'gatsby';
+import { Layout } from '../components';
+import { graphql } from 'gatsby';
 
 const Page = (props) => {
-  console.log("PAGE PROPS: ", props);
+  console.log('PAGE PROPS: ', props);
   return (
     <Layout>
       <BlockRendererProvider
@@ -36,15 +36,21 @@ export const query = graphql`
         title
       }
     }
+    wpCar(databaseId: { eq: $databaseId }) {
+      seo {
+        metaDesc
+        title
+      }
+    }
   }
 `;
 
 export const Head = ({ data }) => {
-  const page = data.wpPage
+  const page = data.wpPage || data.wpCar;
   return (
     <>
-      <title>{page.seo?.title || ""}</title>
-      <meta name="description" content={page.seo?.metaDesc || ""}></meta>
+      <title>{page.seo?.title || ''}</title>
+      <meta name="description" content={page.seo?.metaDesc || ''}></meta>
     </>
   );
 };
